@@ -1,0 +1,49 @@
+
+body{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    background-color:rgb(209, 163, 64) ;
+
+}
+section{
+    text-align: center;
+    border-radius: 0.6rem;
+    width: 30rem;
+    margin: auto;
+    background-color: white;
+    margin-top: 5rem;
+    box-shadow: 0.1rem 0.5rem 2.5rem 1rem black;
+}
+.title{
+    padding-top: 1.4rem;
+}
+.container{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    width: 10rem;
+    margin:9.8rem;
+    margin-bottom: 0.6rem;
+    margin-top: 0.6rem;
+}
+.cell{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 3rem;
+    height: 3rem;
+    box-shadow: 0rem 0rem 0.1rem gray;
+    border: 0.1rem solid gray;
+    line-height: 3rem;
+    font-size: 1.2rem;
+}
+button{
+    margin-bottom: 1.2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: rgb(94, 118, 239);
+    cursor: pointer;
+}
+button:hover{
+    transition: 0.5s;
+    background-color: rgb(156, 43, 115);
+}
+
