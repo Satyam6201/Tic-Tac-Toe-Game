@@ -1,6 +1,7 @@
 body{
     font-family:Georgia, 'Times New Roman', Times, serif;
     background:linear-gradient(135deg, #6A0572, #AB83A1);
+    height: 100vh;
 
 }
 section{
