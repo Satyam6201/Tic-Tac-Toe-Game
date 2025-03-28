@@ -1,7 +1,6 @@
-
 body{
     font-family:Georgia, 'Times New Roman', Times, serif;
-    background-color:rgb(17, 232, 146) ;
+    background:linear-gradient(135deg, #6A0572, #AB83A1);
 
 }
 section{
@@ -9,7 +8,7 @@ section{
     border-radius: 0.6rem;
     width: 30rem;
     margin: auto;
-    background-color: white;
+    background: linear-gradient(135deg, #2E3192, #1BFFFF);;
     margin-top: 5rem;
     box-shadow: 0.1rem 0.5rem 2.5rem 1rem black;
 }
@@ -39,11 +38,11 @@ button{
     border: none;
     border-radius: 0.3rem;
     color: white;
-    background-color: rgb(94, 118, 239);
+    background:linear-gradient(135deg, #FF7E5F, #FEB47B);
     cursor: pointer;
 }
 button:hover{
     transition: 0.5s;
-    background-color: rgb(156, 43, 115);
+    background: linear-gradient(135deg, #FF00FF, #00FFFF);
 }
 
