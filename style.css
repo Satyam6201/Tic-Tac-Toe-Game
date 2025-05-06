@@ -3,6 +3,7 @@ body{
     background:linear-gradient(135deg, #6A0572, #AB83A1);
     height: 100vh;
 }
+
 section{
     text-align: center;
     border-radius: 0.6rem;
@@ -12,9 +13,11 @@ section{
     margin-top: 5rem;
     box-shadow: 0.1rem 0.5rem 2.5rem 1rem black;
 }
+
 .title{
     padding-top: 1.4rem;
 }
+
 .container{
     display: grid;
     grid-template-columns: repeat(3,auto);
@@ -23,6 +26,7 @@ section{
     margin-bottom: 0.6rem;
     margin-top: 0.6rem;
 }
+
 .cell{
     font-family: Georgia, 'Times New Roman', Times, serif;
     width: 3rem;
