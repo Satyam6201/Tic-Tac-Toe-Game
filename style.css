@@ -2,7 +2,6 @@ body{
     font-family:Georgia, 'Times New Roman', Times, serif;
     background:linear-gradient(135deg, #6A0572, #AB83A1);
     height: 100vh;
-
 }
 section{
     text-align: center;
@@ -33,6 +32,7 @@ section{
     line-height: 3rem;
     font-size: 1.2rem;
 }
+
 button{
     margin-bottom: 1.2rem;
     height: 2rem;
@@ -42,6 +42,7 @@ button{
     background:linear-gradient(135deg, #FF7E5F, #FEB47B);
     cursor: pointer;
 }
+
 button:hover{
     transition: 0.5s;
     background: linear-gradient(135deg, #FF00FF, #00FFFF);
