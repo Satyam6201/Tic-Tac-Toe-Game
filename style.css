@@ -3,6 +3,9 @@
   --text-color: #000;
   --cell-bg: #fff;
   --win-highlight: #28a745;
+  --section-bg: linear-gradient(135deg, #6a11cb, #2575fc);
+  --button-gradient: linear-gradient(135deg, #ff6a00, #ee0979);
+  --button-hover: linear-gradient(135deg, #43cea2, #185a9d);
 }
 
 body.dark {
@@ -10,6 +13,9 @@ body.dark {
   --text-color: #f0f0f0;
   --cell-bg: #2e2e2e;
   --win-highlight: #ffd700;
+  --section-bg: linear-gradient(135deg, #000428, #004e92);
+  --button-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
+  --button-hover: linear-gradient(135deg, #6a11cb, #2575fc);
 }
 
 body {
@@ -21,18 +27,23 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
 
 section {
   text-align: center;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: var(--section-bg);
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 400px;
 }
 
 .title {
   margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .theme-toggle {
@@ -47,29 +58,30 @@ section {
 }
 
 .slider {
-  width: 40px;
-  height: 20px;
+  width: 50px;
+  height: 24px;
   background: gray;
-  border-radius: 20px;
+  border-radius: 24px;
   position: relative;
   margin-right: 0.5rem;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .slider::before {
   content: '';
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background: white;
   position: absolute;
   border-radius: 50%;
-  top: 1px;
-  left: 1px;
+  top: 2px;
+  left: 2px;
   transition: all 0.3s;
 }
 
 input:checked + .slider::before {
-  transform: translateX(20px);
+  transform: translateX(26px);
   background: yellow;
 }
 
@@ -91,7 +103,8 @@ input:checked + .slider::before {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 0.5rem;
 }
 
 .cell:hover {
@@ -108,7 +121,7 @@ button {
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 0.5rem;
-  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  background: var(--button-gradient);
   color: white;
   font-size: 1rem;
   cursor: pointer;
@@ -116,7 +129,13 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(135deg, #43cea2, #185a9d);
+  background: var(--button-hover);
+}
+
+.status {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  font-weight: bold;
 }
 
 .scoreboard {
@@ -124,4 +143,5 @@ button:hover {
   justify-content: space-around;
   margin: 1rem auto;
   max-width: 300px;
+  font-weight: bold;
 }
