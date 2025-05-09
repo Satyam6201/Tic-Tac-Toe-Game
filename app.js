@@ -1,88 +1,98 @@
 const display = document.querySelector(".status");
+const cells = document.querySelectorAll(".cell");
+const restartBtn = document.querySelector(".restart");
 
 let active = true;
-let currentPlayer = "O";
-let gamestatus = ["","","","","","","","",""];
+let currentPlayer = "X";
+let gamestatus = ["", "", "", "", "", "", "", "", ""];
+
+let xScore = 0, oScore = 0, drawScore = 0;
 
 const winningMessage = () => `Player ${currentPlayer} has won 🎉!`;
-const drawMessage = () => `Game ended match is draw 😶`;
-const currentPlayerturn = () => `It's ${currentPlayer}'s Turn 🫵🏻`;
+const drawMessage = () => `Game Draw 😶`;
+const currentPlayerTurn = () => `It's ${currentPlayer}'s turn 🫵🏻`;
 
-display.innerHTML = currentPlayerturn();
+display.innerHTML = currentPlayerTurn();
 
-document.querySelectorAll(".cell")
-.forEach(cell => cell.addEventListener('click' ,handleCellClick ));
-document.querySelector(".restart")
-.addEventListener('click' , handleRestartGame);
+cells.forEach(cell => cell.addEventListener("click", handleCellClick));
+restartBtn.addEventListener("click", handleRestartGame);
 
-function handleCellClick (clickedCellEvent){
-    const clickedCell = clickedCellEvent.target;
-    const clickedCellIndex = parseInt(
-        clickedCell.getAttribute('data-cell-index')
-    );
-    if (gamestatus[clickedCellIndex] !== "" || !active) {
-        return;
-    };
-    handleCellPlayed (clickedCell , clickedCellIndex);
-    handleResultValidation();
-};
+document.getElementById("modeToggle").addEventListener("change", () => {
+  document.body.classList.toggle("dark");
+});
 
-function handleCellPlayed (clickedCell ,clickedCellIndex ){
-    gamestatus [ clickedCellIndex] = currentPlayer;
-    clickedCell.innerHTML = currentPlayer;
-};
+function handleCellClick(e) {
+  const cell = e.target;
+  const index = parseInt(cell.getAttribute("data-cell-index"));
+  if (gamestatus[index] !== "" || !active) return;
 
-const winningCondition = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6]
+  gamestatus[index] = currentPlayer;
+  cell.textContent = currentPlayer;
+  cell.classList.add("clicked");
+
+  handleResultValidation();
+}
+
+const winningConditions = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
 ];
-function handleResultValidation(){
-   let roundWon = false;
-    for (let i = 0; i<=7; i++){
-        const winCondition = winningCondition[i];
-        let a = gamestatus[winCondition[0]];
-        let b = gamestatus[winCondition[1]];
-        let c = gamestatus[winCondition[2]];
 
-        if (a === "" || b === "" || c === "") {
-            continue;
-        };
-        if (a === b && b === c) {
-            roundWon = true;
-            break;
-        };
-    };
-    if (roundWon) {
-        display.innerHTML = winningMessage();
-        active = false;
-        return;
-    };
-    let roundDraw = !gamestatus.includes("");
-    if (roundDraw) {
-        display.innerHTML = drawMessage();
-        active = false;
-        return;
-    };
+function handleResultValidation() {
+  let roundWon = false;
+  let winCombo = [];
 
-    handlePlayerChange();
-};
+  for (let i = 0; i < winningConditions.length; i++) {
+    const [a, b, c] = winningConditions[i];
+    if (gamestatus[a] && gamestatus[a] === gamestatus[b] && gamestatus[a] === gamestatus[c]) {
+      roundWon = true;
+      winCombo = [a, b, c];
+      break;
+    }
+  }
+
+  if (roundWon) {
+    display.innerHTML = winningMessage();
+    active = false;
+    winCombo.forEach(index => cells[index].classList.add("winner"));
+    updateScore(currentPlayer);
+    return;
+  }
+
+  if (!gamestatus.includes("")) {
+    display.innerHTML = drawMessage();
+    active = false;
+    drawScore++;
+    document.getElementById("drawScore").textContent = drawScore;
+    return;
+  }
+
+  handlePlayerChange();
+}
 
 function handlePlayerChange() {
-    currentPlayer = currentPlayer === "X" ? "O": "X";
-    display.innerHTML = currentPlayerturn();
-};
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  display.innerHTML = currentPlayerTurn();
+}
 
 function handleRestartGame() {
-    active = true;
-    gamestatus = ["","","","","","","","",""];
-    display.innerHTML = currentPlayerturn();
-    document.querySelectorAll(".cell")
-    .forEach(cell => cell.innerHTML = "");
-};
+  active = true;
+  currentPlayer = "X";
+  gamestatus = ["", "", "", "", "", "", "", "", ""];
+  display.innerHTML = currentPlayerTurn();
+  cells.forEach(cell => {
+    cell.textContent = "";
+    cell.classList.remove("winner");
+  });
+}
 
+function updateScore(player) {
+  if (player === "X") {
+    xScore++;
+    document.getElementById("xScore").textContent = xScore;
+  } else {
+    oScore++;
+    document.getElementById("oScore").textContent = oScore;
+  }
+}
