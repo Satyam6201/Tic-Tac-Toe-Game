@@ -3,6 +3,11 @@
 A simple yet stylish **Tic Tac Toe** game built using **HTML**, **CSS**, and **JavaScript**. This web-based game features a modern UI, dark mode toggle, real-time scoreboard, and smooth gameplay. Perfect for fun and learning purposes!
 
 ---
+## 🔗 Live Demo
+
+👉 [Play Now on Vercel](https://tic-tac-toe-game-xi-peach.vercel.app/
+
+---
 
 ## 🔥 Features
 
