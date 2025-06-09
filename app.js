@@ -161,23 +161,27 @@ if (SpeechRecognition) {
     recognizing = true;
     voiceStatus.textContent = "Listening...";
     voiceBtn.textContent = "🎙️ Stop Voice Command";
-    voiceBtn.style.backgroundColor = "var(--voice-btn-hover)";
+    voiceBtn.style.backgroundColor = "var(--button-hover)";
+    console.log("Voice recognition started");
   };
 
   recognition.onend = () => {
     recognizing = false;
     voiceStatus.textContent = "";
     voiceBtn.textContent = "🎤 Start Voice Command";
-    voiceBtn.style.backgroundColor = "var(--voice-btn-bg)";
+    voiceBtn.style.backgroundColor = "var(--button-gradient)";
+    console.log("Voice recognition ended");
   };
 
   recognition.onerror = (event) => {
     voiceStatus.textContent = `Error: ${event.error}`;
+    console.error("Speech recognition error:", event.error);
   };
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript.toLowerCase().trim();
     voiceStatus.textContent = `Heard: "${transcript}"`;
+    console.log("Transcript:", transcript);
     handleVoiceCommand(transcript);
   };
 } else {
@@ -194,9 +198,6 @@ voiceBtn.addEventListener("click", () => {
 });
 
 function handleVoiceCommand(command) {
-  // Expected commands:
-  // "place x on 1", "put o in 5", "mark x at 9", etc.
-
   const regex = /(?:place|put|mark|set|move)\s([xo])\s(?:on|in|at|to)?\s?(\d)/;
   const match = command.match(regex);
 
@@ -228,9 +229,11 @@ function handleVoiceCommand(command) {
     return;
   }
 
-  // Make the move
+  // Make the move - update gamestatus and UI
+  gamestatus[pos] = currentPlayer;
   const cell = cells[pos];
-  updateCell(cell, pos);
-  playClickSound();
+  cell.textContent = currentPlayer;
+  cell.classList.add("clicked");
+
   handleResultValidation();
 }
