@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tic Tac Toe Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tic Tac Toe Game with Voice Commands</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -24,20 +24,28 @@
       <p>Draws: <span id="drawScore">0</span></p>
     </div>
 
-    <div class="container">
-      <div data-cell-index="0" class="cell"></div>
-      <div data-cell-index="1" class="cell"></div>
-      <div data-cell-index="2" class="cell"></div>
-      <div data-cell-index="3" class="cell"></div>
-      <div data-cell-index="4" class="cell"></div>
-      <div data-cell-index="5" class="cell"></div>
-      <div data-cell-index="6" class="cell"></div>
-      <div data-cell-index="7" class="cell"></div>
-      <div data-cell-index="8" class="cell"></div>
+    <div class="container" role="grid" aria-label="Tic Tac Toe Board">
+      <div data-cell-index="0" class="cell" role="gridcell" tabindex="0" aria-label="Cell 1"></div>
+      <div data-cell-index="1" class="cell" role="gridcell" tabindex="0" aria-label="Cell 2"></div>
+      <div data-cell-index="2" class="cell" role="gridcell" tabindex="0" aria-label="Cell 3"></div>
+      <div data-cell-index="3" class="cell" role="gridcell" tabindex="0" aria-label="Cell 4"></div>
+      <div data-cell-index="4" class="cell" role="gridcell" tabindex="0" aria-label="Cell 5"></div>
+      <div data-cell-index="5" class="cell" role="gridcell" tabindex="0" aria-label="Cell 6"></div>
+      <div data-cell-index="6" class="cell" role="gridcell" tabindex="0" aria-label="Cell 7"></div>
+      <div data-cell-index="7" class="cell" role="gridcell" tabindex="0" aria-label="Cell 8"></div>
+      <div data-cell-index="8" class="cell" role="gridcell" tabindex="0" aria-label="Cell 9"></div>
     </div>
 
-    <h3 class="status"></h3>
-    <button class="restart">Restart Game</button>
+    <h3 class="status" aria-live="polite"></h3>
+    <button class="restart" aria-label="Restart Game">Restart Game</button>
+
+    <div class="voice-section">
+      <button id="voiceBtn" aria-label="Toggle Voice Command">🎤 Start Voice Command</button>
+      <p class="voice-instructions">
+        Say commands like <strong>"Place X on 1"</strong> or <strong>"Put O in 5"</strong>.
+      </p>
+      <p class="voice-status"></p>
+    </div>
   </section>
 
   <script src="app.js"></script>
