@@ -42,7 +42,7 @@ A simple yet stylish **Tic Tac Toe** game built using **HTML**, **CSS**, and **J
    git clone https://github.com/Satyam6201/Tic-Tac-Toe-Game
 
 📂 Project Structure
-
+```
 Tic-Tac-Toe-Game/
 
 ├── index.html         # Main HTML structure
@@ -52,7 +52,7 @@ Tic-Tac-Toe-Game/
 ├── app.js             # JavaScript game logic
 
 └── screenshots/       # Optional folder for screenshots
-
+```
 🙌 Credits
 
 Built with 💻 by Satyam Kumar Mishra
