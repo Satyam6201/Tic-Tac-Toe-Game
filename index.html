@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tic Tac Toe Game with Voice Commands</title>
+  <title>Tic Tac Toe Game with Voice & AI</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <section>
     <h1 class="title">Tic Tac Toe Game</h1>
 
+    <!-- Theme Toggle -->
     <div class="theme-toggle">
       <label>
         <input type="checkbox" id="modeToggle" />
@@ -18,12 +20,23 @@
       <p>Dark Mode</p>
     </div>
 
+    <!-- AI Mode Toggle -->
+    <div class="game-mode-toggle">
+      <label>
+        <input type="checkbox" id="aiToggle" />
+        <span class="slider"></span>
+      </label>
+      <p>Play with AI</p>
+    </div>
+
+    <!-- Scoreboard -->
     <div class="scoreboard">
       <p>Player X Wins: <span id="xScore">0</span></p>
       <p>Player O Wins: <span id="oScore">0</span></p>
       <p>Draws: <span id="drawScore">0</span></p>
     </div>
 
+    <!-- Game Board -->
     <div class="container" role="grid" aria-label="Tic Tac Toe Board">
       <div data-cell-index="0" class="cell" role="gridcell" tabindex="0" aria-label="Cell 1"></div>
       <div data-cell-index="1" class="cell" role="gridcell" tabindex="0" aria-label="Cell 2"></div>
@@ -36,9 +49,13 @@
       <div data-cell-index="8" class="cell" role="gridcell" tabindex="0" aria-label="Cell 9"></div>
     </div>
 
+    <!-- Game Status -->
     <h3 class="status" aria-live="polite"></h3>
+
+    <!-- Restart Button -->
     <button class="restart" aria-label="Restart Game">Restart Game</button>
 
+    <!-- Voice Control Section -->
     <div class="voice-section">
       <button id="voiceBtn" aria-label="Toggle Voice Command">🎤 Start Voice Command</button>
       <p class="voice-instructions">
@@ -46,6 +63,13 @@
       </p>
       <p class="voice-status"></p>
     </div>
+
+    <!-- Game History Section -->
+    <div class="game-history">
+      <h4>Game History</h4>
+      <ul id="historyList"></ul>
+    </div>
+
   </section>
 
   <script src="app.js"></script>
