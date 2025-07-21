@@ -1,4 +1,3 @@
-// Selectors
 const display = document.querySelector(".status");
 const cells = document.querySelectorAll(".cell");
 const restartBtn = document.querySelector(".restart");
