@@ -5,13 +5,11 @@ Includes **AI mode**, **dark mode**, **sound effects**, and a **game history tra
 
 ---
 
-## 🔗 Live Demo
-
-👉 [Play the Game](https://tic-tac-toe-game-xi-peach.vercel.app/)
-
-## 📂 GitHub Repository
-
-👉 [GitHub Source Code](https://github.com/Satyam6201/Tic-Tac-Toe-Game)
+<p align="center">
+  <a href="https://tic-tac-toe-game-xi-peach.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/🔴 Live-Demo-green?style=for-the-badge" /></a>
+  <a href="https://github.com/Satyam6201/Tic-Tac-Toe-Game" target="_blank"><img src="https://img.shields.io/badge/💻 Source-Code-blue?style=for-the-badge" /></a>
+  <a href="https://www.linkedin.com/in/satyam-kumar-mishra-9bb980291/" target="_blank"><img src="https://img.shields.io/badge/📇 Connect-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin" /></a>
+</p>
 
 ---
 
