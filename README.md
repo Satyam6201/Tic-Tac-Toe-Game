@@ -1,58 +1,55 @@
-# 🎮 Tic Tac Toe Game
+# 🎮 Tic Tac Toe Game – Enhanced with AI, Sound & Dark Mode
 
-A simple yet stylish **Tic Tac Toe** game built using **HTML**, **CSS**, and **JavaScript**. This web-based game features a modern UI, dark mode toggle, real-time scoreboard, and smooth gameplay. Perfect for fun and learning purposes!
+A modern, interactive Tic Tac Toe game built with **HTML**, **CSS**, and **JavaScript**.  
+Includes **AI mode**, **dark mode**, **sound effects**, and a **game history tracker** – all packed in a clean, responsive design.
 
 ---
+
 ## 🔗 Live Demo
 
-👉 [Play Now on Vercel](https://tic-tac-toe-game-xi-peach.vercel.app/
+👉 [Play the Game](https://tic-tac-toe-game-xi-peach.vercel.app/)
+
+## 📂 GitHub Repository
+
+👉 [GitHub Source Code](https://github.com/Satyam6201/Tic-Tac-Toe-Game)
 
 ---
 
-## 🔥 Features
+## ✅ Features
 
-- ✅ Interactive 3x3 grid with click-based gameplay  
-- 🌗 Light / Dark Mode toggle  
-- 📈 Real-time scoreboard (Player X Wins, Player O Wins, Draws)  
-- 🎨 Animated UI with smooth transitions  
-- 🔁 Restart game functionality  
-- 🎯 Winner cell highlight
+| Feature              | Description                                       |
+|----------------------|---------------------------------------------------|
+| 🎮 **2-Player Mode**  | Play with a friend on the same device             |
+| 🤖 **AI Mode**        | Play against a smart AI bot                       |
+| 🌙 **Dark Mode**      | Toggle light and dark themes                      |
+| 🔊 **Sound Effects**  | Click, win, and draw sound effects                |
+| 🧠 **AI Strategy**     | Blocks player wins, tries to win intelligently   |
+| ♻️ **Restart Button** | Reset the game instantly                          |
+| 🧾 **Game History**    | Track game wins, draws, and resets               |
+| 💻 **Responsive UI**  | Mobile, tablet, and desktop friendly layout       |
+| 💡 **Modern Design**  | Hover effects, gradients, transitions, Google Fonts |
 
 ---
 
 ## 📸 Screenshots
 
-![image](https://github.com/user-attachments/assets/18de47c7-81c1-4329-b07b-ddffee186abc)
-![image](https://github.com/user-attachments/assets/79147664-cbd0-42cb-b320-77a92a0fa8cb)
+> Light and Dark Mode Preview
+
+![Tic Tac Toe Light](https://user-images.githubusercontent.com/0000000/lightmode.png)
+![Tic Tac Toe Dark](https://user-images.githubusercontent.com/0000000/darkmode.png)
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Built With
 
-- **HTML5**
-- **CSS3** (with custom variables and transitions)
-- **Vanilla JavaScript**
+- **HTML5** – Markup structure
+- **CSS3** – Styling with modern transitions and dark mode
+- **JavaScript** – Game logic, AI, sound, DOM interactions
+- **Google Fonts** – Aesthetic typography
+- **Font Awesome** – Icons for UI
 
 ---
 
-## 🚀 How to Run the Project
+## 📁 Project Structure
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Satyam6201/Tic-Tac-Toe-Game
 
-📂 Project Structure
-```
-Tic-Tac-Toe-Game/
-
-├── index.html         # Main HTML structure
-
-├── style.css          # Styling, animations, and themes
-
-├── app.js             # JavaScript game logic
-
-└── screenshots/       # Optional folder for screenshots
-```
-🙌 Credits
-
-Built with 💻 by Satyam Kumar Mishra
