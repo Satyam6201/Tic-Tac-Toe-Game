@@ -52,4 +52,11 @@ Includes **AI mode**, **dark mode**, **sound effects**, and a **game history tra
 
 ## 📁 Project Structure
 
-
+```
+Tic-Tac-Toe-Game/
+│
+├── index.html # Main HTML structure
+├── style.css # All game styling
+├── script.js # Game logic, AI, DOM manipulation
+└── README.md # Documentation
+```
