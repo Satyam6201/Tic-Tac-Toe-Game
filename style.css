@@ -253,39 +253,6 @@ button.restart:hover {
   color: var(--text-color);
 }
 
-/* =============== Game History =============== */
-
-.game-history {
-  margin-top: 1.6rem;
-  padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 0.7rem;
-  max-height: 120px;
-  overflow-y: auto;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-}
-
-.game-history h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: var(--text-color);
-  text-shadow: 0 0 2px #00000022;
-}
-
-.game-history ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-color);
-}
-
-.game-history li {
-  margin-bottom: 0.4rem;
-  font-style: italic;
-  transition: all 0.3s;
-}
-
 /* =============== Scrollbar Styling =============== */
 
 .game-history ul::-webkit-scrollbar {
