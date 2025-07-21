@@ -1,175 +1,239 @@
+// Selectors
+const display = document.querySelector(".status");
 const cells = document.querySelectorAll(".cell");
-const statusText = document.querySelector(".status");
 const restartBtn = document.querySelector(".restart");
-const xScoreText = document.getElementById("xScore");
-const oScoreText = document.getElementById("oScore");
-const drawScoreText = document.getElementById("drawScore");
 const modeToggle = document.getElementById("modeToggle");
-const aiToggle = document.getElementById("aiToggle");
-const historyList = document.getElementById("historyList");
+
 const voiceBtn = document.getElementById("voiceBtn");
 const voiceStatus = document.querySelector(".voice-status");
 
-let board = ["", "", "", "", "", "", "", "", ""];
+let active = true;
 let currentPlayer = "X";
-let isGameActive = true;
-let vsAI = false;
+let gamestatus = Array(9).fill("");
 
-let xWins = 0, oWins = 0, draws = 0;
+let xScore = 0, oScore = 0, drawScore = 0;
 
-const winConditions = [
-  [0,1,2], [3,4,5], [6,7,8], 
-  [0,3,6], [1,4,7], [2,5,8], 
-  [0,4,8], [2,4,6]
+const winningConditions = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
 ];
 
-initializeGame();
+const winningMessage = () => `Player ${currentPlayer} has won 🎉!`;
+const drawMessage = () => `Game Draw 😶`;
+const currentPlayerTurn = () => `It's ${currentPlayer}'s turn 🫵🏻`;
 
-function initializeGame() {
-  cells.forEach(cell => {
-    cell.textContent = "";
-    cell.addEventListener("click", cellClicked);
-  });
-  restartBtn.addEventListener("click", restartGame);
-  modeToggle.addEventListener("change", toggleDarkMode);
-  aiToggle.addEventListener("change", toggleAI);
-  voiceBtn.addEventListener("click", startVoiceRecognition);
+display.textContent = currentPlayerTurn();
 
-  statusText.textContent = `Player ${currentPlayer}'s turn`;
+// Toggle dark mode
+modeToggle.addEventListener("change", () => {
+  document.body.classList.toggle("dark");
+});
+
+// Cell click handler
+cells.forEach(cell => cell.addEventListener("click", handleCellClick));
+restartBtn.addEventListener("click", handleRestartGame);
+
+// Play audio feedback for clicks
+function playClickSound() {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioCtx.createOscillator();
+  oscillator.type = 'triangle';
+  oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
+  oscillator.connect(audioCtx.destination);
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 0.1);
 }
 
-function cellClicked() {
-  const index = this.dataset.cellIndex;
-  if (board[index] !== "" || !isGameActive) return;
-
-  board[index] = currentPlayer;
-  this.textContent = currentPlayer;
-  checkWinner();
-
-  if (vsAI && isGameActive && currentPlayer === "O") {
-    setTimeout(makeAIMove, 500);
-  }
+// Play sound for win
+function playWinSound() {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioCtx.createOscillator();
+  oscillator.type = 'sine';
+  oscillator.frequency.setValueAtTime(700, audioCtx.currentTime);
+  oscillator.connect(audioCtx.destination);
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 0.4);
 }
 
-function makeAIMove() {
-  let emptyCells = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
-  let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-  board[randomIndex] = currentPlayer;
-  cells[randomIndex].textContent = currentPlayer;
-  checkWinner();
+// Play sound for draw
+function playDrawSound() {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioCtx.createOscillator();
+  oscillator.type = 'square';
+  oscillator.frequency.setValueAtTime(200, audioCtx.currentTime);
+  oscillator.connect(audioCtx.destination);
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 0.3);
 }
 
-function checkWinner() {
+function handleCellClick(e) {
+  const cell = e.target;
+  const index = parseInt(cell.getAttribute("data-cell-index"));
+  if (gamestatus[index] !== "" || !active) return;
+
+  updateCell(cell, index);
+  playClickSound();
+  handleResultValidation();
+}
+
+function updateCell(cell, index) {
+  gamestatus[index] = currentPlayer;
+  cell.textContent = currentPlayer;
+  cell.classList.add("clicked");
+}
+
+function handleResultValidation() {
   let roundWon = false;
+  let winCombo = [];
 
-  for (let condition of winConditions) {
-    const [a, b, c] = condition;
-    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+  for (let i = 0; i < winningConditions.length; i++) {
+    const [a, b, c] = winningConditions[i];
+    if (gamestatus[a] && gamestatus[a] === gamestatus[b] && gamestatus[a] === gamestatus[c]) {
       roundWon = true;
+      winCombo = [a, b, c];
       break;
     }
   }
 
   if (roundWon) {
-    isGameActive = false;
-    statusText.textContent = `Player ${currentPlayer} Wins! 🎉`;
-    celebrateWinner();
+    display.textContent = winningMessage();
+    active = false;
+    winCombo.forEach(index => cells[index].classList.add("winner"));
     updateScore(currentPlayer);
-    updateHistory(`${currentPlayer} Wins`);
-  } else if (!board.includes("")) {
-    isGameActive = false;
-    statusText.textContent = "It's a Draw!";
-    draws++;
-    drawScoreText.textContent = draws;
-    updateHistory("Draw");
-  } else {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusText.textContent = `Player ${currentPlayer}'s turn`;
+    playWinSound();
+    return;
   }
+
+  if (!gamestatus.includes("")) {
+    display.textContent = drawMessage();
+    active = false;
+    drawScore++;
+    document.getElementById("drawScore").textContent = drawScore;
+    playDrawSound();
+    return;
+  }
+
+  handlePlayerChange();
+}
+
+function handlePlayerChange() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  display.textContent = currentPlayerTurn();
+}
+
+function handleRestartGame() {
+  active = true;
+  currentPlayer = "X";
+  gamestatus = Array(9).fill("");
+  display.textContent = currentPlayerTurn();
+  cells.forEach(cell => {
+    cell.textContent = "";
+    cell.classList.remove("winner", "clicked");
+  });
 }
 
 function updateScore(player) {
   if (player === "X") {
-    xWins++;
-    xScoreText.textContent = xWins;
+    xScore++;
+    document.getElementById("xScore").textContent = xScore;
   } else {
-    oWins++;
-    oScoreText.textContent = oWins;
+    oScore++;
+    document.getElementById("oScore").textContent = oScore;
   }
 }
 
-function updateHistory(result) {
-  const li = document.createElement("li");
-  li.textContent = `${result} (${new Date().toLocaleTimeString()})`;
-  historyList.prepend(li);
-}
+// ===== Voice Command Feature =====
 
-function celebrateWinner() {
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
-}
+// Check for browser support
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-function restartGame() {
-  board = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
-  isGameActive = true;
-  cells.forEach(cell => cell.textContent = "");
-  statusText.textContent = `Player ${currentPlayer}'s turn`;
-}
+let recognition;
+let recognizing = false;
 
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode", modeToggle.checked);
-}
-
-function toggleAI() {
-  vsAI = aiToggle.checked;
-  restartGame();
-}
-
-// ------------------ Voice Command Feature ------------------
-function startVoiceRecognition() {
-  if (!('webkitSpeechRecognition' in window)) {
-    voiceStatus.textContent = "Voice not supported.";
-    return;
-  }
-
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = "en-US";
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
-  recognition.start();
-  voiceStatus.textContent = "Listening...";
-
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript.toLowerCase();
-    const match = transcript.match(/(?:place|put)\s?(x|o)\s?(on|in)?\s?(\d)/);
-    
-    if (match) {
-      const player = match[1].toUpperCase();
-      const index = parseInt(match[3]) - 1;
-
-      if (board[index] === "" && isGameActive) {
-        currentPlayer = player;
-        board[index] = currentPlayer;
-        cells[index].textContent = currentPlayer;
-        checkWinner();
-      } else {
-        voiceStatus.textContent = "Invalid move.";
-      }
-    } else {
-      voiceStatus.textContent = "Try saying: Place X on 5";
-    }
-  };
-
-  recognition.onerror = () => {
-    voiceStatus.textContent = "Voice recognition error.";
+  recognition.onstart = () => {
+    recognizing = true;
+    voiceStatus.textContent = "Listening...";
+    voiceBtn.textContent = "🎙️ Stop Voice Command";
+    voiceBtn.style.backgroundColor = "var(--button-hover)";
+    console.log("Voice recognition started");
   };
 
   recognition.onend = () => {
-    voiceStatus.textContent += " [Done]";
+    recognizing = false;
+    voiceStatus.textContent = "";
+    voiceBtn.textContent = "🎤 Start Voice Command";
+    voiceBtn.style.backgroundColor = "var(--button-gradient)";
+    console.log("Voice recognition ended");
   };
+
+  recognition.onerror = (event) => {
+    voiceStatus.textContent = `Error: ${event.error}`;
+    console.error("Speech recognition error:", event.error);
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript.toLowerCase().trim();
+    voiceStatus.textContent = `Heard: "${transcript}"`;
+    console.log("Transcript:", transcript);
+    handleVoiceCommand(transcript);
+  };
+} else {
+  voiceBtn.disabled = true;
+  voiceStatus.textContent = "Voice commands not supported in this browser.";
+}
+
+voiceBtn.addEventListener("click", () => {
+  if (!recognizing) {
+    recognition.start();
+  } else {
+    recognition.stop();
+  }
+});
+
+function handleVoiceCommand(command) {
+  const regex = /(?:place|put|mark|set|move)\s([xo])\s(?:on|in|at|to)?\s?(\d)/;
+  const match = command.match(regex);
+
+  if (!match) {
+    voiceStatus.textContent = "Command not recognized. Try 'Place X on 1'.";
+    return;
+  }
+
+  const player = match[1].toUpperCase();
+  const pos = parseInt(match[2]) - 1;
+
+  if (!active) {
+    voiceStatus.textContent = "Game is over. Please restart to play again.";
+    return;
+  }
+
+  if (player !== currentPlayer) {
+    voiceStatus.textContent = `It's not Player ${player}'s turn!`;
+    return;
+  }
+
+  if (pos < 0 || pos > 8) {
+    voiceStatus.textContent = "Position must be between 1 and 9.";
+    return;
+  }
+
+  if (gamestatus[pos] !== "") {
+    voiceStatus.textContent = `Cell ${pos + 1} is already occupied.`;
+    return;
+  }
+
+  // Make the move - update gamestatus and UI
+  gamestatus[pos] = currentPlayer;
+  const cell = cells[pos];
+  cell.textContent = currentPlayer;
+  cell.classList.add("clicked");
+
+  handleResultValidation();
 }
