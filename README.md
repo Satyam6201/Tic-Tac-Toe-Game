@@ -23,7 +23,6 @@ Includes **AI mode**, **dark mode**, **sound effects**, and a **game history tra
 | 🤖 **AI Mode**        | Play against a smart AI bot                       |
 | 🌙 **Dark Mode**      | Toggle light and dark themes                      |
 | 🔊 **Sound Effects**  | Click, win, and draw sound effects                |
-| 🧠 **AI Strategy**     | Blocks player wins, tries to win intelligently   |
 | ♻️ **Restart Button** | Reset the game instantly                          |
 | 🧾 **Game History**    | Track game wins, draws, and resets               |
 | 💻 **Responsive UI**  | Mobile, tablet, and desktop friendly layout       |
