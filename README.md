@@ -58,12 +58,3 @@ Tic-Tac-Toe-Game/
 └── README.md # Documentation
 ```
 
----
-
-## 🚀 How to Run Locally
-
-Clone this repository:
-
-```bash
-git clone https://github.com/Satyam6201/Tic-Tac-Toe-Game.git
-cd Tic-Tac-Toe-Game
