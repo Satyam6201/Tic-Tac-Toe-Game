@@ -18,7 +18,6 @@ Includes **AI mode**, **dark mode**, **sound effects**, and a **game history tra
 | Feature              | Description                                       |
 |----------------------|---------------------------------------------------|
 | 🎮 **2-Player Mode**  | Play with a friend on the same device             |
-| 🤖 **AI Mode**        | Play against a smart AI bot                       |
 | 🌙 **Dark Mode**      | Toggle light and dark themes                      |
 | 🔊 **Sound Effects**  | Click, win, and draw sound effects                |
 | ♻️ **Restart Button** | Reset the game instantly                          |
@@ -57,4 +56,3 @@ Tic-Tac-Toe-Game/
 ├── script.js # Game logic, AI, DOM manipulation
 └── README.md # Documentation
 ```
-
